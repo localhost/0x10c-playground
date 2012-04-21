@@ -5,17 +5,8 @@
   set z, 0
 
 :inner
-  set a, [x]
-  set b, [x + 1]
-
-  ifg b, a
-  set pc, next
-
-  add z, 1
-
-  ; swap values
-  set [x], b
-  set [x+1], a
+  ifg [x], [x + 1]
+  set pc, swap
 
 :next
   add x, 1
@@ -30,6 +21,17 @@
 :end
   set pc, end
 
-:num dat 10
+:swap
+  add z, 1
+
+  ; swap values
+  set a, [x]
+  set [x], [x + 1]
+  set [x + 1], a
+
+  set pc, next
+
+:num dat 20
 :data
   dat 4096, 1, 300, 64, 42, 23, 100, 101, 500, 0
+  dat 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
