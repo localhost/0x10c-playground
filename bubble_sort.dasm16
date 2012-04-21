@@ -1,0 +1,34 @@
+:outer
+  set x, data
+  set y, [num]
+  set z, 0
+
+:inner
+  set a, [x]
+  set b, [x + 1]
+
+  ifg b, a
+  set pc, next
+
+  add z, 1
+
+  ; swap values
+  set [x], b
+  set [x+1], a
+
+:next
+  add x, 1
+
+  sub y, 1
+  ifn y, 0
+  set pc, inner
+
+  ifn z, 0 ; continue sorting?
+  set pc, outer
+
+:end
+  set pc, end
+
+:num dat 5
+:data
+  dat 4096, 1, 300, 64, 42
