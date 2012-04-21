@@ -1,6 +1,7 @@
 :outer
   set x, data
   set y, [num]
+  sub y, 1
   set z, 0
 
 :inner
@@ -29,6 +30,6 @@
 :end
   set pc, end
 
-:num dat 5
+:num dat 10
 :data
-  dat 4096, 1, 300, 64, 42
+  dat 4096, 1, 300, 64, 42, 23, 100, 101, 500, 0
