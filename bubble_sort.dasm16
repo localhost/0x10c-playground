@@ -1,37 +1,60 @@
-:outer
-  set x, data
-  set y, [num]
-  sub y, 1
-  set z, 0
-
-:inner
-  ifg [x], [x + 1]
-  set pc, swap
-
-:next
-  add x, 1
-
-  sub y, 1
-  ifn y, 0
-  set pc, inner
-
-  ifn z, 0 ; continue sorting?
-  set pc, outer
-
+  set a, data
+  set b, [num]
+  jsr bubble_sort
 :end
   set pc, end
-
-:swap
-  add z, 1
-
-  ; swap values
-  set a, [x]
-  set [x], [x + 1]
-  set [x + 1], a
-
-  set pc, next
 
 :num dat 20
 :data
   dat 4096, 1, 300, 64, 42, 23, 100, 101, 500, 0
   dat 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+
+; ---------------
+; - bubble sort -
+; ---------------
+
+; in: a: addr of data
+; in: b: number of elements
+; out: [sorted data]
+; modifies: b, c
+
+:bubble_sort
+  set push, x
+  set push, y
+  set push, z
+
+:_bubble_sort_outer
+  set x, a ; data
+  sub b, 1
+  set y, b ; len
+  set z, 0
+
+:_bubble_sort_inner
+  ifg [x], [x + 1]
+  set pc, _bubble_sort_swap
+
+:_bubble_sort_next
+  add x, 1
+
+  sub y, 1
+  ifn y, 0
+  set pc, _bubble_sort_inner
+
+  ifn z, 0 ; continue sorting?
+  set pc, _bubble_sort_outer
+
+:_bubble_sort_done
+  set pop, z
+  set pop, y
+  set pop, x
+  set pc, pop
+
+:_bubble_sort_swap
+  add z, 1
+
+  ; swap values
+  set c, [x]
+  set [x], [x + 1]
+  set [x + 1], c
+
+  set pc, _bubble_sort_next
