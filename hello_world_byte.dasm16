@@ -8,8 +8,8 @@
   set j, 0
 :loop 
   set a, [text+i]
-
   set b, a
+
   and a, 0xff00
   shr a, 8
 
