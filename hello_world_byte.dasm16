@@ -1,0 +1,35 @@
+  set pc, start
+
+:text
+  dat 0x4865, 0x6c6c, 0x6f20, 0x576f, 0x726c, 0x6421, 0x00
+
+:start
+  set i, 0
+  set j, 0
+:loop 
+  set a, [text+i]
+
+  set b, a
+  and a, 0xff00
+  shr a, 8
+
+  ife a, 0
+  set pc, end
+
+  set [0x8000+j], a
+  add j, 1
+
+  and b, 0x00ff
+
+  ife b, 0
+  set pc, end
+
+  set [0x8000+j], b
+  add j, 1
+
+  add i, 1
+  set pc, loop
+
+:end
+  set pc, end
+
