@@ -1,0 +1,13 @@
+set pc, start
+
+:text dat "Hello World!", 0
+
+:start set i, 0
+:loop set a, [text+i]
+ife a, 0
+set pc, end
+set [0x8000+i], a
+add i, 1
+set pc, loop
+:end set pc, end
+
